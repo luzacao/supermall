@@ -18,8 +18,10 @@ export default {
       },
       pullUpLoad:{
       type:Boolean,
-      default:true
+      default:false
+
     },
+   
     },
  
     data() {
@@ -35,15 +37,16 @@ export default {
           pullUpLoad:this.pullUpLoad
       })
       //监听滚动位置
+      if(this.probeType==2||this.probeType==3){ 
        this.scroll.on('scroll',(position)=>{
          this.$emit('scroll',position)
-       })
-       //上拉加载更多       
+       }) }
+       //上拉加载更多  
+           if(this.pullUpLoad){
       this.scroll.on('pullingUp', () => {
-          console.log('上拉加载');
           this.$emit('pullingUp')
-        })
-      
+        })}
+     
      
     },
     methods: {
@@ -52,7 +55,18 @@ export default {
       },
       finishPullUp(){
         this.scroll.finishPullUp()
+      },
+      refresh(){
+        this.scroll&& this.scroll.refresh()
+      },
+      finishPullUp(){
+        this.scroll&&this.scroll.finishPullUp()
+      },
+      getScrollY(){
+        return this.scroll ? this.scroll.y:0
+        
       }
+
     },
 }
 </script>

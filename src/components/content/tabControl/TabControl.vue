@@ -16,7 +16,9 @@
 
 export default {
     name:'TabControl',
+    
     props:{
+        
         titles:{
             type:Array,
             default(){
@@ -26,11 +28,14 @@ export default {
     },
     data() {
         return {
+            
             currentIndex:0
         }
     },
     methods: {
+        
         itemClick(index){
+            
             this.currentIndex=index;
             this.$emit('tabClick',index)
         }
