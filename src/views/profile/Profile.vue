@@ -1,127 +1,109 @@
 <template>
+  <div id="profile">
+    <nav-bar class="nav-bar"><div slot="center">购物街</div></nav-bar>
+    <!--1.单独封装一个组件: 利用slot知识点-->
+    <UserInfo></UserInfo>
 
-    <div >
-      <scroll class="content">
-        <ul>
-          <li>列表1</li>
-          <li>列表2</li>
-          <li>列表3</li>
-          <li>列表4</li>
-          <li>列表5</li>
-          <li>列表6</li>
-          <li>列表7</li>
-          <li>列表8</li>
-          <li>列表9</li>
-          <li>列表10</li>
-          <li>列表11</li>
-          <li>列表12</li>
-          <li>列表13</li>
-          <li>列表14</li>
-          <li>列表15</li>
-          <li>列表16</li>
-          <li>列表17</li>
-          <li>列表18</li>
-          <li>列表19</li>
-          <li>列表20</li>
-          <li>列表21</li>
-          <li>列表22</li>
-          <li>列表23</li>
-          <li>列表24</li>
-          <li>列表25</li>
-          <li>列表26</li>
-          <li>列表27</li>
-          <li>列表28</li>
-          <li>列表29</li>
-          <li>列表30</li>
-          <li>列表31</li>
-          <li>列表32</li>
-          <li>列表33</li>
-          <li>列表34</li>
-          <li>列表35</li>
-          <li>列表36</li>
-          <li>列表37</li>
-          <li>列表38</li>
-          <li>列表39</li>
-          <li>列表40</li>
-          <li>列表41</li>
-          <li>列表42</li>
-          <li>列表43</li>
-          <li>列表44</li>
-          <li>列表45</li>
-          <li>列表46</li>
-          <li>列表47</li>
-          <li>列表48</li>
-          <li>列表49</li>
-          <li>列表50</li>
-          <li>列表51</li>
-          <li>列表52</li>
-          <li>列表53</li>
-          <li>列表54</li>
-          <li>列表55</li>
-          <li>列表56</li>
-          <li>列表57</li>
-          <li>列表58</li>
-          <li>列表59</li>
-          <li>列表60</li>
-          <li>列表61</li>
-          <li>列表62</li>
-          <li>列表63</li>
-          <li>列表64</li>
-          <li>列表65</li>
-          <li>列表66</li>
-          <li>列表67</li>
-          <li>列表68</li>
-          <li>列表69</li>
-          <li>列表70</li>
-          <li>列表71</li>
-          <li>列表72</li>
-          <li>列表73</li>
-          <li>列表74</li>
-          <li>列表75</li>
-          <li>列表76</li>
-          <li>列表77</li>
-          <li>列表78</li>
-          <li>列表79</li>
-          <li>列表80</li>
-          <li>列表81</li>
-          <li>列表82</li>
-          <li>列表83</li>
-          <li>列表84</li>
-          <li>列表85</li>
-          <li>列表86</li>
-          <li>列表87</li>
-          <li>列表88</li>
-          <li>列表89</li>
-          <li>列表90</li>
-          <li>列表91</li>
-          <li>列表92</li>
-          <li>列表93</li>
-          <li>列表94</li>
-          <li>列表95</li>
-          <li>列表96</li>
-          <li>列表97</li>
-          <li>列表98</li>
-          <li>列表99</li>
-          <li>列表100</li>
-        </ul>
-      </scroll>
-    </div>
-  
+    <!--2.没有单独封装: 不同的地方太多, 需要传过多的参数-->
+    <section class="account">
+      <div class="account-item">
+        <div class="number">
+          <span class="balance">0.00</span>元
+        </div>
+        <div class="account-info">我的余额</div>
+      </div>
+      <div class="account-item">
+        <div class="number">
+          <span class="balance">0</span>个
+        </div>
+        <div class="account-info">我的优惠</div>
+      </div>
+      <div class="account-item">
+        <div class="number">
+          <span class="balance">0</span>分
+        </div>
+        <div class="account-info">我的积分</div>
+      </div>
+    </section>
+
+    <!--3.封装成一个整体-->
+    <list-view :list-data="orderList" class="order-list"></list-view>
+    <list-view :list-data="serviceList" class="service-list"></list-view>
+  </div>
 </template>
-<script>
-import Scroll from 'components/common/scroll/Scroll'
 
-export default {
-    name:'Profile',
-    components:{
-      Scroll
+<script>
+  import UserInfo from './childComps/UserInfo'
+  import ListView from './childComps/ListView'
+  import NavBar from 'components/common/navbar/NavBar'
+
+	export default {
+		name: "Profile",
+    components: {
+		  UserInfo, ListView, NavBar
+    },
+    data: function () {
+		  return {
+		    orderList: [
+          {icon: '#order', iconColor: '#ff8198', info: '我的消息'},
+          {icon: '#point', iconColor: '#fc7b53', info: '积分商城'},
+          {icon: '#vip', iconColor: '#ffc636', info: '会员卡'},
+        ],
+        serviceList: [
+          {icon: '#service', iconColor: '#ff8198', info: '我的购物车'},
+          {icon: '#download', iconColor: '#ff8198', info: '下载购物APP'},
+        ]
+      }
+    },
+    mounted: function () {
     }
-}
+	}
 </script>
+
 <style scoped>
-.content{
-  height: 200px;
-  background-color: red;
-  overflow: hidden;
-}
+  #profile {
+    background-color: #f2f2f2;
+  }
+
+  .nav-bar {
+    background-color: var(--color-tint);
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .account {
+    display: flex;
+  }
+
+  .account-item {
+    width: 100%;
+    background-color: #fff;
+    margin-right: 1px;
+    text-align: center;
+  }
+
+  .account-item:last-of-type {
+    margin-right: 0;
+  }
+
+  .account-item {
+    color: #666;
+    font-size: 13px;
+    padding: 18px;
+  }
+
+  .account-item .balance {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ff5f3e;
+  }
+
+  .account-info {
+    margin-top: 6px;
+  }
+
+  .order-list, .service-list {
+    margin-top: 12px;
+  }
+
 </style>
